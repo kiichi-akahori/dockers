@@ -1,0 +1,18 @@
+# docker run -d -v `pwd`/jenkins_home:/var/jenkins_home -p 8080:8080 -p 50000:50000 jenkins/jenkins:lts
+# git setting https://github.com/jenkinsci/ghprb-plugin/issues/534
+# if you create `Multibranch Pipeline Events`. http://localhost:8080/job/yahoo-answer-jp-crawler/
+version: '3.3'
+
+services:
+    jenkins:
+        build: .
+        user: "0"
+        container_name: jenkins
+        restart: always
+        volumes:
+            - ./jenkins_home:/var/jenkins_home
+        ports:
+            - "8080:8080"
+            - "50000:50000"
+        privileged: true
+

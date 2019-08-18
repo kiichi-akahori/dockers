@@ -1,0 +1,16 @@
+version: "3"
+services:
+    web:
+        build: .
+        container_name: aspnetapp
+        ports:
+            - "8000:80"
+            - "5000:5000"
+            - "5001:5001"
+        depends_on:
+            - db
+    db:
+        image: "mcr.microsoft.com/mssql/server"
+        environment:
+            SA_PASSWORD: "Your_password123"
+            ACCEPT_EULA: "Y"

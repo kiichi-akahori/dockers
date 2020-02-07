@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  db:
+    image: mysql:8
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_TCP_PORT: ${MYSQL_TCP_PORT}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+
+  db-web-gui:
+    image: phpmyadmin/phpmyadmin:5
+    depends_on:
+      - db
+    restart: always
+    ports:
+      - "8081:80"
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOST=db
+      - PMA_PORT=${MYSQL_TCP_PORT}
+
+volumes:
+  db_data: {}
